@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoWahala AI — Your AI Business Assistant</title>
+    <!-- Google Fonts Setup -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. CORE CSS resets and color palette variables */
+        :root {
+            --bg-dark: #121318;
+            --bg-card: #1a1c23;
+            --color-teal: #14b8a6;
+            --color-teal-hover: #0d9488;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            line-height: 1.5;
+        }
+
+        /* 2. LAYOUT WRAPPERS */
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER NAVIGATION */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 24px;
+            padding-bottom: 24px;
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text-title span {
+            color: var(--color-teal);
+        }
+
+        .logo-tagline {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+            display: block;
+            margin-top: -2px;
+        }
+
+        .badge {
+            background-color: rgba(20, 184, 166, 0.1);
+            color: var(--color-teal);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-teal);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        /* 3. GRID LAYOUT & HERO COMPONENTS */
+        main {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            align-items: center;
+            padding-top: 32px;
+            padding-bottom: 48px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                grid-template-columns: 7fr 5fr;
+            }
+        }
+
+        .hero-text {
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .hero-text {
+                text-align: left;
+            }
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 54px;
+            }
+        }
+
+        h1 span {
+            color: var(--color-teal);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 500;
+            max-width: 600px;
+            margin: 0 auto 32px auto;
+        }
+
+        @media (min-width: 768px) {
+            .subtitle {
+                margin: 0 0 32px 0;
+                font-size: 18px;
+            }
+        }
+
+        /* VALUE PROPOSITION CARDS */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            text-align: left;
+        }
+
+        @media (min-width: 500px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feat-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 16px;
+            border-radius: 12px;
+        }
+
+        .feat-title {
+            color: var(--color-teal);
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 6px;
+        }
+
+        .feat-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* 4. FORM AND CARD ELEMENT HOUSING */
+        .form-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .form-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        input, select {
+            width: 100%;
+            background-color: var(--bg-dark);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--color-teal);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-icon-prefix {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4b5563;
+            font-size: 14px;
+        }
+
+        .input-with-icon input {
+            padding-left: 32px;
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--color-teal);
+            color: var(--bg-dark);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            margin-top: 8px;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: var(--color-teal-hover);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* 5. FOOTER DESIGN */
+        footer {
+            border-top: 1px solid #111827;
+            padding: 24px 0;
+            font-size: 12px;
+            color: #4b5563;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            footer .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        footer p + p {
+            margin-top: 8px;
+        }
+
+        @media (min-width: 768px) {
+            footer p + p {
+                margin-top: 0;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTAINER HEADER -->
+    <div class="container">
+        <header>
+            <div class="logo-wrap">
+                <!-- SVG Vector Robot Accent Element -->
+                <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-teal);">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                </svg>
+                <div>
+                    <span class="logo-text-title">NoWahala <span>AI</span></span>
+                    <span class="logo-tagline">Your AI business assistant</span>
+                </div>
+            </div>
+            
+            <div class="badge">
+                <span class="badge-dot"></span>
+                VIP Launch Pool
+            </div>
+        </header>
+    </div>
+
+    <!-- MAIN BODY GRID CONTAINER -->
+    <div class="container">
+        <main>
+            <!-- Hero Copy Framework -->
+            <div class="hero-text">
+                <h1>Stop losing customers because your <span>Instagram DM</span> is full.</h1>
+                <p class="subtitle">Meet the 24/7 AI conversational representative built strictly for busy Nigerian service businesses. It answers service enquiries, handles FAQs, and books clients straight into your calendar automatically.</p>
+                
+                <div class="features-grid">
+                    <div class="feat-card">
+                        <div class="feat-title">⚡ 24/7 Replies</div>
+                        <div class="feat-desc">Responds instantly to comments and DMs at midnight or midday.</div>
+                    </div>
+                    <div class="feat-card">
+                        <div class="feat-title">📅 Auto Bookings</div>
+                        <div class="feat-desc">Automatically books clients into your calendar without you lifting a finger.</div>       
+                </div>
+
+                <div class="feat-card">
+                        <div class="feat-title">💬 WhatsApp Hub</div>
+                        <div class="feat-desc">Sends automatic appointment updates and reminders directly.</div>
+                    </div>  
+
+                </div>
+            </div>
+
+
+            <!-- Right Side: Contact/Waitlist Form Card -->
+            <div class="md:col-span-5 bg-brandCard p-8 rounded-2xl border border-gray-800 shadow-2xl relative overflow-hidden">
+                <!-- Subtle backdrop gradient glow -->
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-brandTeal/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-white mb-2">Join the VIP Waiting List</h2>
+                    <p class="text-sm text-gray-400">
+                        We are selecting only <strong>5 exclusive high-growth service brands</strong> for our initial setup program. Secure priority onboarding and lock in introductory launch pricing forever.
+                    </p>
+                </div>
+
+                <!-- Form: Replace action value with Formspree / Web3Forms endpoint link -->
+                <form action="#" method="POST" class="space-y-4">
+                    
+                    <!-- Full Name -->
+                    <div style="margin-top: 10px; margin-bottom: 12px;">
+                        <label for="name" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="e.g. Chidi Adebayo" 
+                            class="w-full bg-brandDark border border-gray-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brandTeal transition">
+                    </div>
+
+                    <!-- Business Name -->
+                    <div style="margin-top: 10px; margin-bottom: 12px;">
+                        <label for="business_name" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Name</label>
+                        <input type="text" id="business_name" name="business_name" required placeholder="e.g. Glow Aesthetics Spa" 
+                            class="w-full bg-brandDark border border-gray-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brandTeal transition">
+                    </div>
+
+                    <!-- Instagram Handle -->
+                    <div style="margin-top: 10px; margin-bottom: 12px;">
+                        <label for="instagram" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Instagram Handle</label>
+                        <div class="relative flex items-center">
+                            <span class="absolute left-4 text-gray-500 text-sm">@</span>
+                            <input type="text" id="instagram" name="instagram" required placeholder="glow_spa_ng" 
+                                class="w-full bg-brandDark border border-gray-700 rounded-lg pl-9 pr-4 py-3 text-white text-sm focus:outline-none focus:border-brandTeal transition">
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Number -->
+                    <div style="margin-top: 10px; margin-bottom: 12px;">
+                        <label for="phone" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">WhatsApp Number</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="e.g. +234 801 234 5678" 
+                            class="w-full bg-brandDark border border-gray-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brandTeal transition">
+                    </div>
+
+                    <!-- Business Niche Dropdown -->
+                    <div style="margin-top: 10px; margin-bottom: 12px;">
+                        <label for="niche" class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Business Type</label>
+                        <select id="niche" name="niche" required 
+                            class="w-full bg-brandDark border border-gray-700 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-brandTeal transition appearance-none cursor-pointer">
+                            <option value="" disabled selected>Select your industry</option>
+                            <option value="salon_beauty">Salon / Hair & Beauty</option>
+                            <option value="spa_wellness">Spa / Wellness & Massage</option>
+                            <option value="photography_creative">Photography / Creative Studio</option>
+                            <option value="consulting_coaching">Consulting / Corporate Coaching</option>
+                            <option value="other">Other Service Business</option>
+                        </select>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" 
+                        class="w-full bg-brandTeal hover:bg-brandTealHover text-brandDark font-bold py-3.5 px-4 rounded-lg shadow-lg hover:shadow-brandTeal/20 transition-all duration-200 text-sm tracking-wide mt-2">
+                        Secure My VIP Beta Slot 🚀
+                    </button>
+                </form>
+            </div>
+                    
+</main>
+        <!-- 3. FOOTER SECTION -->
+        <footer class="max-w-7xl w-full mx-auto px-6 py-6 border-t border-gray-900 text-center md:flex md:justify-between items-center text-xs text-gray-500">
+            <p>&copy; 2026 NoWahala AI. All rights reserved.</p>
+            <p class="mt-2 md:mt-0">Built to empower digital social commerce and service vendors in Nigeria.</p>
+        </footer>
+
+    </body>
+</html>
